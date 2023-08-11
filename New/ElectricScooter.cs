@@ -20,7 +20,6 @@ public class ElectricScooter : MonoBehaviour
     public bool TurnOnNextPathZone;
     public bool LookAtNextPathZone;
     public bool ChildCountBool;
-    public bool AccidentCarMovement;
     public bool RespawnTrigger;
     bool GameSuccessBool;
     public bool MainTask;
@@ -31,6 +30,8 @@ public class ElectricScooter : MonoBehaviour
     public bool ChangeAccident;
     float OnTriggerThreshold;
     public float distanceTravelled;
+    public int AccidentScenarioNumber;
+    public bool ScooterExitZone;
 
     float RespawnTimer;
     float RouteChoiceTimer;
@@ -147,7 +148,6 @@ public class ElectricScooter : MonoBehaviour
             if(OnTriggerThreshold >= 2)
             {
                 AccidentCar.SetActive(true);
-                AccidentCarMovement = true;
                 PathZoneCount++;
                 TurnOnNextPathZone = true;
                 OnTriggerThreshold = 0;
@@ -161,6 +161,7 @@ public class ElectricScooter : MonoBehaviour
         if (other.gameObject.CompareTag("PathZone"))
         {
             AccidentTimerStart = true;
+            ScooterExitZone = true;
             ES_Location = gameObject.transform.position;
         }
     }

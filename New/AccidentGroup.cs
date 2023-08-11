@@ -1,3 +1,4 @@
+using PathCreation;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,8 +8,10 @@ public class AccidentGroup : MonoBehaviour
     [SerializeField] ElectricScooter ES;
 
     List<Transform> AccidentList;
+
     GameObject Accident;
     float AccidentTimer;
+
 
     void Update()
     {
@@ -47,11 +50,21 @@ public class AccidentGroup : MonoBehaviour
                 else
                     Accident = AccidentList[Random.Range(3, 7)].gameObject;
 
+                if (Accident.name == "AccidentStraight_StraightThenStopOn3rdLane") ES.AccidentScenarioNumber = 0;
+                else if (Accident.name == "AccidentStraight_TurnRight") ES.AccidentScenarioNumber = 1;
+                else if (Accident.name == "AccidentStraight_SuddenStartFrom3rdLane") ES.AccidentScenarioNumber = 2;
+                else if (Accident.name == "AccidentTurnRight_ComeFrom2ndLandThenTurnRight") ES.AccidentScenarioNumber = 3;
+                else if (Accident.name == "AccidentTurnRight_TurnRightThenStop") ES.AccidentScenarioNumber = 4;
+                else if (Accident.name == "AccidentTurnRight_StraightThenStopOn3rdLane") ES.AccidentScenarioNumber = 5;
+                else if (Accident.name == "AccidentTurnRight_SuddenStartFrom3rdLane") ES.AccidentScenarioNumber = 6;
+
                 Accident.SetActive(true);
                 AccidentTimer = 0;
                 ES.AccidentTimerStart = false;
             }
         }
+
+
 
         if (ES.RespawnTrigger)
         {
