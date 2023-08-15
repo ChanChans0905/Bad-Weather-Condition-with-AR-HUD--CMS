@@ -31,7 +31,8 @@ public class ElectricScooter : MonoBehaviour
     float OnTriggerThreshold;
     public float distanceTravelled;
     public int AccidentScenarioNumber;
-    public bool ScooterExitZone;
+    public bool ScooterExitZone, ScooterEnterZone;
+    public bool ScooterEnterAccidentCollidor;
 
     float RespawnTimer;
     float RouteChoiceTimer;
@@ -147,6 +148,7 @@ public class ElectricScooter : MonoBehaviour
         {
             if(OnTriggerThreshold >= 2)
             {
+                ScooterEnterZone = true;
                 AccidentCar.SetActive(true);
                 PathZoneCount++;
                 TurnOnNextPathZone = true;
@@ -154,6 +156,8 @@ public class ElectricScooter : MonoBehaviour
                 distanceTravelled = 0;
             }
         }
+        if (other.gameObject.CompareTag("AccidentStart"))
+            ScooterEnterAccidentCollidor = true;
     }
 
     private void OnTriggerExit(Collider other)
