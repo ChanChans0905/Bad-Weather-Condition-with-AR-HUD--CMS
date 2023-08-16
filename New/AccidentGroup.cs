@@ -9,9 +9,11 @@ public class AccidentGroup : MonoBehaviour
 
     List<Transform> AccidentList;
 
+    public GameObject Obstacle;
     GameObject Accident;
-    float AccidentTimer;
-
+    float SetNextAccidentTimer;
+    float StoppingTimer;
+    PathCreator PathCreator;
 
     void Update()
     {
@@ -28,22 +30,26 @@ public class AccidentGroup : MonoBehaviour
                     Accident = AccidentList[Random.Range(3, 7)].gameObject;
 
                 Accident.SetActive(true);
+                //PathCreator = Accident.GetComponent<PathCreator>();
                 ES.ChangeAccident = true;
             }
 
         }
 
-        if (ES.AccidentTimerStart)
+        if (ES.SetNextAccident)
         {
-            AccidentTimer += Time.deltaTime;
-
-            if (AccidentTimer > 7)
+            SetNextAccidentTimer += Time.deltaTime;
+            if (SetNextAccidentTimer > 7)
             {
                 Accident.SetActive(false);
                 ES.AccidentCar.SetActive(false);
 
                 transform.position = GameObject.Find(ES.PathZoneName + "_" + ES.RouteSelection.ToString() + "_" + (ES.PathZoneCount).ToString()).transform.position;
                 transform.LookAt(GameObject.Find(ES.PathZoneName + "_" + ES.RouteSelection.ToString() + "_" + (ES.PathZoneCount - 1).ToString()).transform.position);
+                GameObject.Find(ES.PathZoneName + "_" + ES.RouteSelection.ToString() + "_" + (ES.PathZoneCount - 1)).SetActive(false);
+
+                ES.ScooterExitZone = false;
+                ES.ScooterEnterAccidentCollidor = false;
 
                 if (ES.StraightOrTurnRight)
                     Accident = AccidentList[Random.Range(0, 3)].gameObject;
@@ -59,18 +65,59 @@ public class AccidentGroup : MonoBehaviour
                 else if (Accident.name == "AccidentTurnRight_SuddenStartFrom3rdLane") ES.AccidentScenarioNumber = 6;
 
                 Accident.SetActive(true);
-                AccidentTimer = 0;
-                ES.AccidentTimerStart = false;
+                //PathCreator = Accident.GetComponent<PathCreator>();
+                //Debug.Log(Accident);
+                SetNextAccidentTimer = 0;
+                ES.SetNextAccident = false;
             }
         }
 
-
+        //switch (ES.AccidentScenarioNumber)
+        //{
+        //    case 0:
+        //        if (ES.ScooterEnterAccidentCollidor && !ES.ScooterExitZone) NormalDrive();
+        //        break;
+        //    case 1:
+        //        if (ES.ScooterEnterAccidentCollidor) NormalDrive();
+        //        break;
+        //    case 2:
+        //        if (ES.ScooterExitZone) NormalDrive();
+        //        break;
+        //    case 3:
+        //        if (ES.ScooterEnterAccidentCollidor) NormalDrive();
+        //        break;
+        //    case 4:
+        //        if (ES.ScooterEnterAccidentCollidor) NormalDrive();
+        //        break;
+        //    case 5:
+        //        if (ES.ScooterEnterAccidentCollidor && !ES.ScooterExitZone) NormalDrive();
+        //        break;
+        //    case 6:
+        //        if (ES.ScooterExitZone) NormalDrive();
+        //        break;
+        //}
 
         if (ES.RespawnTrigger)
         {
-            AccidentTimer = 0;
+            SetNextAccidentTimer = 0;
             Accident.SetActive(false);
         }
+    }
+
+    void NormalDrive()
+    {
+        if (ES.AccidentScenarioNumber == 4)
+        {
+            StoppingTimer += Time.deltaTime;
+            if (!(StoppingTimer >= 3 && StoppingTimer <= 6))
+                ES.distanceTravelled += Time.deltaTime * 20f;
+        }
+        else
+            ES.distanceTravelled += Time.deltaTime * 20f;
+
+        Debug.Log("WayPointWorking");
+        Obstacle.transform.position = PathCreator.path.GetPointAtDistance(ES.distanceTravelled);
+        Obstacle.transform.rotation = PathCreator.path.GetRotationAtDistance(ES.distanceTravelled);
     }
 
     List<Transform> GetChildren(Transform parent)

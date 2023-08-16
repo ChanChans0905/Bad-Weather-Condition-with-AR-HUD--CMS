@@ -24,7 +24,7 @@ public class ElectricScooter : MonoBehaviour
     bool GameSuccessBool;
     public bool MainTask;
     public int RouteSelection;
-    public bool AccidentTimerStart;
+    public bool SetNextAccident;
     public bool StraightOrTurnRight;
     public bool RouteChoice;
     public bool ChangeAccident;
@@ -41,7 +41,6 @@ public class ElectricScooter : MonoBehaviour
     string AccidentTurnRight = "AccidentTurnRight";
     GameObject FindTargetZone;
     Vector3 TargetZone;
-    public Vector3 ES_Location;
 
     Vector3 AccidentGroupStartPosition;
     Quaternion AccidentGroupStartRotation;
@@ -117,7 +116,7 @@ public class ElectricScooter : MonoBehaviour
             TargetZone = FindTargetZone.transform.position;
         }
 
-        if (AccidentTimerStart)
+        if (SetNextAccident)
         {
             if (Route_StraightOrTurnRight[PathZoneCount] == "Straight")
                 StraightOrTurnRight = true;
@@ -130,7 +129,7 @@ public class ElectricScooter : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Obstacle"))
+        if (other.gameObject.CompareTag("Car"))
         {
             RespawnTrigger = true;
             FadeInOut.FadingEvent = true;
@@ -156,7 +155,7 @@ public class ElectricScooter : MonoBehaviour
                 distanceTravelled = 0;
             }
         }
-        if (other.gameObject.CompareTag("AccidentStart"))
+        if (other.gameObject.CompareTag("AccidentCollidor"))
             ScooterEnterAccidentCollidor = true;
     }
 
@@ -164,9 +163,8 @@ public class ElectricScooter : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PathZone"))
         {
-            AccidentTimerStart = true;
+            SetNextAccident = true;
             ScooterExitZone = true;
-            ES_Location = gameObject.transform.position;
         }
     }
 
