@@ -22,15 +22,15 @@ public class PathZoneGroup : MonoBehaviour
             ES.TurnOnNextPathZone = false;
         }
 
-        List<Transform> GetChildren(Transform parent)
-        {
-            List<Transform> children = new List<Transform>();
-            foreach (Transform child in parent) { children.Add(child); }
-            return children;
-        }
+        if (ES.RespawnTrigger)
+            for (int i = 0; i < PathZone.Count; i++)
+                PathZone[i].gameObject.SetActive(false);
+    }
 
-        if(ES.RespawnTrigger)
-            for(int i = 1; i < PathZone.Count; i++)
-                PathZone[i].gameObject.SetActive(false); 
+    List<Transform> GetChildren(Transform parent)
+    {
+        List<Transform> children = new List<Transform>();
+        foreach (Transform child in parent) { children.Add(child); }
+        return children;
     }
 }

@@ -12,54 +12,35 @@ public class ElectricScooter : MonoBehaviour
     public GameObject PathPointer;
     public GameObject AccidentGroup;
     public GameObject FailureNotice;
-    public GameObject PathZoneGroup1;
-    public GameObject AccidentCar;
-
+    public GameObject PathZoneGroup_1, PathZoneGroup_2, PathZoneGroup_3;
+    public GameObject PathZone_1_0, PathZone_2_0, PathZone_3_0;
 
     public int PathZoneCount;
-    public bool TurnOnNextPathZone;
-    public bool LookAtNextPathZone;
-    public bool ChildCountBool;
-    public bool RespawnTrigger;
-    bool GameSuccessBool;
-    public bool MainTask;
     public int RouteSelection;
-    public bool SetNextAccident;
-    public bool StraightOrTurnRight;
-    public bool RouteChoice;
-    public bool ChangeAccident;
-    float OnTriggerThreshold;
-    public float distanceTravelled;
-    public int AccidentScenarioNumber;
-    public bool ScooterExitZone, ScooterEnterZone;
-    public bool ScooterEnterAccidentCollidor;
 
-    float RespawnTimer;
-    float RouteChoiceTimer;
+    float RouteChoiceTimer, OnTriggerThreshold, RespawnTimer;
+
+    public bool ChildCountBool, TurnOnNextPathZone, LookAtNextPathZone;
+    public bool MainTask, RouteChoice, RespawnTrigger, GameSuccessBool;
+    public bool StraightOrTurnRight, SetNextAccident, ChangeAccident;
+    public bool ScooterExitZone, ScooterEnterZone, ScooterEnterAccidentCollidor;
+
     public string PathZoneName = "PathZone";
     string AccidentStraight = "AccidentStraight";
     string AccidentTurnRight = "AccidentTurnRight";
-    GameObject FindTargetZone;
-    Vector3 TargetZone;
 
-    Vector3 AccidentGroupStartPosition;
-    Quaternion AccidentGroupStartRotation;
-    Vector3 ScooterStartPosition;
-    Quaternion ScooterStartRotation;
+    GameObject FindTargetZone;
+    Vector3 TargetZone, AccidentGroupStartPosition, ScooterStartPosition;
+    Quaternion AccidentGroupStartRotation, ScooterStartRotation;
 
     string[] Route_StraightOrTurnRight = new string[10];
     int[] AccidentOccur = new int[] { 0, 0, 0, 0, 0, 1, 1, 1, 1, 1 };
     string[] AccidentScenario_Straight = new string[] { "StraightThenStopOn3rdLane", "TurnRight", "SuddenStartFrom3rdLane" };
     string[] AccidentScenario_TurnRight = new string[] { "TurnRightThenStop", "ComeFrom2ndLandThenTurnRight", "StraightThenStopOn3rdLane", "SuddenStartFrom3rdLane" };
-    int[] TotalAccidentScenario = new int[10];
-
-    void Start()
-    {
-    }
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if (Input.GetKeyDown(KeyCode.Q))
         {
             RouteSelection = 1;
             RouteChoice = true;
@@ -70,10 +51,23 @@ public class ElectricScooter : MonoBehaviour
             ChildCountBool = true;
             RouteChoiceTimer += Time.deltaTime;
 
-            if(RouteSelection == 1)
+            if (RouteSelection == 1)
             {
-                PathZoneGroup1.SetActive(true);
+                PathZoneGroup_1.SetActive(true);
+                PathZone_1_0.SetActive(true);
                 Route_StraightOrTurnRight = new string[] { "Straight", "Straight", "TurnRight", "Straight", "TurnRight", "Straight", "Straight", "TurnRight", "TurnRight", "TurnRight" };
+            }
+            else if (RouteSelection == 2)
+            {
+                PathZoneGroup_2.SetActive(true);
+                PathZone_2_0.SetActive(true);
+                Route_StraightOrTurnRight = new string[] { "TurnRight", "Straight", "TurnRight", "TurnRight", "Straight", "TurnRight", "Straight", "Straight", "TurnRight", "TurnRight" };
+            }
+            else if (RouteSelection == 3)
+            {
+                PathZoneGroup_3.SetActive(true);
+                PathZone_3_0.SetActive(true);
+                Route_StraightOrTurnRight = new string[] { "TurnRight", "Straight", "TurnRight", "Straight", "TurnRight", "Straight", "TurnRight", "TurnRight", "Straight", "TurnRight" };
             }
 
             if (Route_StraightOrTurnRight[PathZoneCount] == "Straight")
@@ -88,7 +82,7 @@ public class ElectricScooter : MonoBehaviour
 
             LookAtNextPathZone = true;
 
-            if(RouteChoiceTimer > 3)
+            if (RouteChoiceTimer > 3)
             {
                 RouteChoice = false;
                 MainTask = true;
@@ -96,7 +90,6 @@ public class ElectricScooter : MonoBehaviour
                 RouteChoiceTimer = 0;
                 ChangeAccident = false;
             }
-
         }
 
         if (MainTask)
@@ -124,7 +117,7 @@ public class ElectricScooter : MonoBehaviour
                 StraightOrTurnRight = false;
         }
 
-        if(RespawnTrigger) Respawn();
+        if (RespawnTrigger) Respawn();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -145,14 +138,12 @@ public class ElectricScooter : MonoBehaviour
 
         if (other.gameObject.CompareTag("PathZone"))
         {
-            if(OnTriggerThreshold >= 2)
+            if (OnTriggerThreshold >= 2)
             {
                 ScooterEnterZone = true;
-                AccidentCar.SetActive(true);
                 PathZoneCount++;
                 TurnOnNextPathZone = true;
                 OnTriggerThreshold = 0;
-                distanceTravelled = 0;
             }
         }
         if (other.gameObject.CompareTag("AccidentCollidor"))
@@ -194,9 +185,8 @@ public class ElectricScooter : MonoBehaviour
         transform.rotation = ScooterStartRotation;
         AccidentGroup.transform.position = AccidentGroupStartPosition;
         AccidentGroup.transform.rotation = AccidentGroupStartRotation;
-        AccidentCar.SetActive(false);
 
-        if (RespawnTimer>= 7)
+        if (RespawnTimer >= 3)
         {
             RespawnTrigger = false;
             RespawnTimer = 0;
