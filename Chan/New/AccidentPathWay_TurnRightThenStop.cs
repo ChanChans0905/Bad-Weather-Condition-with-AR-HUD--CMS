@@ -19,7 +19,11 @@ public class AccidentPathWay_TurnRightThenStop : MonoBehaviour
     void NormalDrive()
     {
         StoppingTimer += Time.deltaTime;
-        if (!(StoppingTimer >= 3 && StoppingTimer <= 6))
+        if (StoppingTimer < 2)
+            ES.distanceTravelled += Time.deltaTime * 25f;
+        if (!(StoppingTimer >= 5 && StoppingTimer <= 9))
+            ES.distanceTravelled += Time.deltaTime * 10f;
+        if (StoppingTimer > 10)
             ES.distanceTravelled += Time.deltaTime * 20f;
 
         Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);

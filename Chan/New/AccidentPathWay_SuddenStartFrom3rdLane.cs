@@ -18,10 +18,8 @@ public class AccidentPathWay_SuddenStartFrom3rdLane : MonoBehaviour
     {
         if (ES.ScooterExitZone)
         {
-            ES.distanceTravelled += Time.deltaTime * 5f;
+            ES.distanceTravelled += Time.deltaTime * 10f;
         }
-        else
-            ES.distanceTravelled = 0;
         Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);
         Car.transform.rotation = pathCreator.path.GetRotationAtDistance(ES.distanceTravelled);
     }

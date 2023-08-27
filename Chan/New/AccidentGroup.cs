@@ -39,8 +39,9 @@ public class AccidentGroup : MonoBehaviour
         if (ES.SetNextAccident && ES.PathZoneCount < 10)
         {
             SetNextAccidentTimer += Time.deltaTime;
-            if (SetNextAccidentTimer > 3)
+            if (SetNextAccidentTimer > 7)
             {
+                ES.distanceTravelled = 0;
                 Accident.SetActive(false);
 
                 transform.position = GameObject.Find(ES.PathZoneName + "_" + ES.RouteSelection.ToString() + "_" + (ES.PathZoneCount).ToString()).transform.position;

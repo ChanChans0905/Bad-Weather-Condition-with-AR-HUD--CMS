@@ -32,6 +32,7 @@ public class ElectricScooter : MonoBehaviour
     string AccidentStraight = "AccidentStraight";
     string AccidentTurnRight = "AccidentTurnRight";
     bool GameEndBool;
+    public bool Stop;
 
     GameObject FindTargetZone;
     Vector3 TargetZone, AccidentGroupStartPosition, ScooterStartPosition;
@@ -122,6 +123,9 @@ public class ElectricScooter : MonoBehaviour
                 StraightOrTurnRight = true;
             else if (Route_StraightOrTurnRight[PathZoneCount] == "TurnRight")
                 StraightOrTurnRight = false;
+
+
+            Stop = false;
         }
 
         if (RespawnTrigger) 
