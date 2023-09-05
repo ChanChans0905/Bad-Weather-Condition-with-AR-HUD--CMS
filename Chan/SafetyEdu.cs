@@ -21,6 +21,8 @@ public class SafetyEdu : MonoBehaviour
             Scooter.transform.rotation = pathCreator.path.GetRotationAtDistance(DistanceTravelled);
         }
 
+        //adsf
+
         if(DistanceTravelled >= 10 && DistanceTravelled < 15)
         {
             // ¼³¸í 2Â÷
