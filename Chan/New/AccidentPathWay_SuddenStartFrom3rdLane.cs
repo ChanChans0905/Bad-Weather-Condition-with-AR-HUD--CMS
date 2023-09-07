@@ -8,6 +8,7 @@ public class AccidentPathWay_SuddenStartFrom3rdLane : MonoBehaviour
     [SerializeField] ElectricScooter ES;
     public PathCreator pathCreator;
     public GameObject Car;
+    public bool Start;
 
     void Update()
     {
@@ -17,9 +18,11 @@ public class AccidentPathWay_SuddenStartFrom3rdLane : MonoBehaviour
     void NormalDrive()
     {
         if (ES.ScooterExitZone)
-        {
+            Start = true;
+
+        if(Start)
             ES.distanceTravelled += Time.deltaTime * 10f;
-        }
+
         Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);
         Car.transform.rotation = pathCreator.path.GetRotationAtDistance(ES.distanceTravelled);
     }

@@ -7,7 +7,7 @@ public class AccidentPathWay_TurnRightThenStop : MonoBehaviour
 {
     [SerializeField] ElectricScooter ES;
     public PathCreator pathCreator;
-    float StoppingTimer;
+    public float StoppingTimer;
     public GameObject Car;
 
     // Update is called once per frame

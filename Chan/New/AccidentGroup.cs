@@ -6,6 +6,8 @@ using UnityEngine;
 public class AccidentGroup : MonoBehaviour
 {
     [SerializeField] ElectricScooter ES;
+    [SerializeField] AccidentPathWay_TurnRightThenStop TurnRightThenStop;
+    [SerializeField] AccidentPathWay_SuddenStartFrom3rdLane SuddenStart;
 
     List<Transform> AccidentList;
 
@@ -42,6 +44,8 @@ public class AccidentGroup : MonoBehaviour
             if (SetNextAccidentTimer > 7)
             {
                 ES.distanceTravelled = 0;
+                TurnRightThenStop.StoppingTimer= 0;
+                SuddenStart.Start = false;
                 Accident.SetActive(false);
 
                 transform.position = GameObject.Find(ES.PathZoneName + "_" + ES.RouteSelection.ToString() + "_" + (ES.PathZoneCount).ToString()).transform.position;

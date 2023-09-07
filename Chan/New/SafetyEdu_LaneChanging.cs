@@ -18,8 +18,8 @@ public class SafetyEdu_LaneChanging : MonoBehaviour
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime;
 
-            Car.transform.position = pathCreator.path.GetPointAtDistance(DistanceTravelled * 14f);
-            Car.transform.rotation = pathCreator.path.GetRotationAtDistance(DistanceTravelled * 14f);
+            Car.transform.position = pathCreator.path.GetPointAtDistance(DistanceTravelled * 16f);
+            Car.transform.rotation = pathCreator.path.GetRotationAtDistance(DistanceTravelled * 16f);
 
             if (Timer > 40)
             {

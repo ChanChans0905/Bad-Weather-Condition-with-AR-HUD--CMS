@@ -7,64 +7,87 @@ public class SafetyEdu : MonoBehaviour
 {
     public PathCreator pathCreator;
     public GameObject Scooter;
+    public GameObject GreenLight, RedLight, DeadSound;
+    public GameObject Notice_SlowDown, Notice_Truck, Notice_StopOnRed, Notice_Human, Notice_LaneChanging, Notice_Hit, Notice_KeepLane, Notice_DriveOnRed;
     public bool Truck, Human, LaneChanging, Hit;
     float DistanceTravelled;
     float Timer;
 
 
-    // Update is called once per frame
     void Update()
     {
         Debug.Log(Timer);
 
-        if (Timer < 23)
+        if (Timer < 28)
         {
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime;
         }
 
+        if(Timer > 5 && Timer < 10)
+            Notice_KeepLane.SetActive(true);
 
-        if (Timer >= 23 && Timer < 28) // Car on 3rd Lane
+        if (Timer > 10 && Timer < 11)
+            Notice_KeepLane.SetActive(false);
+
+        if (Timer >= 28 && Timer < 31) // Car on 3rd Lane
         {
+            Notice_SlowDown.SetActive(true);
             Timer += Time.deltaTime * 0.3f;
             DistanceTravelled += Time.deltaTime * 0.3f;
         }
 
-
-        if (Timer >= 28 && Timer < 49) // Truck
+        if (Timer >= 31 && Timer < 56) // Truck
         {
+            Notice_SlowDown.SetActive(false);
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime;
 
-            if(Timer > 40)
+            if (Timer > 36)
+            {
                 Truck = true;
+                Notice_Truck.SetActive(true);
+            }
+            
+            if(Timer > 41)
+                Notice_Truck.SetActive(false);
+
         }
 
-
-        if (Timer >= 49 && Timer < 55) // Stop on Red
+        if (Timer >= 56 && Timer < 62) // Stop on Red
         {
+            Notice_StopOnRed.SetActive(true);
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime * 0f;
+
+            if(Timer > 61)
+            {
+                RedLight.SetActive(false);
+                GreenLight.SetActive(true);
+            }
+                
         }
 
-
-        if (Timer >= 55 && Timer < 63)
+        if (Timer >= 62 && Timer < 73)
         {
+            Notice_StopOnRed.SetActive(false);
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime;
 
-            if (Timer > 60)
+            if (Timer > 65)
                 Human = true;
         }
 
-        if(Timer >= 63 && Timer < 68) // Human
+        if (Timer >= 70 && Timer < 76) // Human
         {
+            Notice_Human.SetActive(true);
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime * 0f;
         }
 
-        if(Timer >= 68 && Timer < 83)
+        if (Timer >= 76 && Timer < 83)
         {
+            Notice_Human.SetActive(false);
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime;
 
@@ -72,27 +95,34 @@ public class SafetyEdu : MonoBehaviour
                 LaneChanging = true;
         }
 
-        if(Timer >= 83 && Timer < 88) // Lane Changing
+        if (Timer >= 83 && Timer < 88) // Lane Changing
         {
+            Notice_LaneChanging.SetActive(true);
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime * 0f;
         }
 
-        if(Timer >= 88 && Timer < 127)
+        if (Timer >= 88 && Timer < 135)
         {
+            Notice_LaneChanging.SetActive(false);
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime;
 
-            if (Timer > 118)
+            if (Timer > 129)
+            {
+                Notice_DriveOnRed.SetActive(true);
                 Hit = true;
+            }
+                
         }
 
-        if(Timer >= 127) // Hit
+        if (Timer >= 134.5f) // Hit
         {
+            Notice_DriveOnRed.SetActive(false);
+            Notice_Hit.SetActive(true);
             DistanceTravelled += Time.deltaTime * 0f;
         }
-
-        Scooter.transform.position = pathCreator.path.GetPointAtDistance(DistanceTravelled * 11f);
-        Scooter.transform.rotation = pathCreator.path.GetRotationAtDistance(DistanceTravelled * 11f);
+            Scooter.transform.position = pathCreator.path.GetPointAtDistance(DistanceTravelled * 11f);
+            Scooter.transform.rotation = pathCreator.path.GetRotationAtDistance(DistanceTravelled * 11f);
     }
 }

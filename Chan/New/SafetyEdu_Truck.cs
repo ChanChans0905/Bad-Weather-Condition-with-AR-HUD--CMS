@@ -15,6 +15,7 @@ public class SafetyEdu_Truck : MonoBehaviour
     {
         if (SE.Truck)
         {
+            Truck.SetActive(true);
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime;
 
@@ -26,6 +27,7 @@ public class SafetyEdu_Truck : MonoBehaviour
                 SE.Truck = false;
                 Timer = 0;
                 DistanceTravelled = 0;
+                Truck.SetActive (false);
                 gameObject.SetActive(false);
             }
         }
