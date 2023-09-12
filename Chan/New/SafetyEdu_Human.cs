@@ -25,6 +25,7 @@ public class SafetyEdu_Human : MonoBehaviour
                 SE.Human= false;
                 Timer = 0;
                 DistanceTravelled = 0;
+                Human.SetActive(false);
                 gameObject.SetActive(false);
             }
         }
