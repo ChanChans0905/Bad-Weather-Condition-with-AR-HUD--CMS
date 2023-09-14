@@ -28,9 +28,9 @@ public class AccidentGroup : MonoBehaviour
             if (ES.ChangeAccident == false)
             {
                 if (ES.StraightOrTurnRight)
-                    Accident = AccidentList[Random.Range(0, 3)].gameObject;
+                    Accident = AccidentList[Random.Range(0, 4)].gameObject;
                 else
-                    Accident = AccidentList[Random.Range(3, 7)].gameObject;
+                    Accident = AccidentList[Random.Range(4, 9)].gameObject;
 
                 Accident.SetActive(true);
                 ES.ChangeAccident = true;
@@ -56,11 +56,11 @@ public class AccidentGroup : MonoBehaviour
                 ES.ScooterEnterAccidentCollidor = false;
 
                 if (ES.StraightOrTurnRight)
-                    Accident = AccidentList[Random.Range(0, 3)].gameObject;
+                    Accident = AccidentList[Random.Range(0, 4)].gameObject;
                 else
-                    Accident = AccidentList[Random.Range(3, 7)].gameObject;
+                    Accident = AccidentList[Random.Range(4, 9)].gameObject;
 
-                if (AccidentOccur[ES.PathZoneCount] == 1)
+                //if (AccidentOccur[ES.PathZoneCount] == 1)
                     Accident.SetActive(true);
 
                 SetNextAccidentTimer = 0;

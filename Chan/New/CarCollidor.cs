@@ -11,6 +11,12 @@ public class CarCollidor : MonoBehaviour
     void Start()
     {
         StartPos = transform.position;
+        StartRot = transform.rotation;
+    }
+
+    private void FixedUpdate()
+    {
+
     }
 
     private void OnTriggerEnter(Collider other)
