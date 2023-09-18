@@ -34,8 +34,8 @@ public class AccidentPathWay_SuddenStartFrom3rdLane : MonoBehaviour
         {
             Timer += Timer.deltaTime;
 
-            Car.transform.position = pathCreator.path.GetPointAtDistance(Timer * 5f);
-            Car.transform.rotation = pathCreator.path.GetRotationAtDistance(Timer * 5f);
+            Car.transform.position = pathCreator.path.GetPointAtDistance(Timer * 15f);
+            Car.transform.rotation = pathCreator.path.GetRotationAtDistance(Timer * 15f);
 
             if (Timer > 15)
             {
