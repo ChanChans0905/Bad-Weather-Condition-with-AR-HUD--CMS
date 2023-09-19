@@ -17,7 +17,7 @@ public class AccidentPathWay_TurnRight : MonoBehaviour
 
     void NormalDrive()
     {
-        ES.distanceTravelled += Time.deltaTime * 40f;
+        ES.distanceTravelled += Time.deltaTime * 20f;
 
         Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);
         Car.transform.rotation = pathCreator.path.GetRotationAtDistance(ES.distanceTravelled);

@@ -9,48 +9,21 @@ public class AccidentPathWay_SuddenStartFrom3rdLane : MonoBehaviour
     public PathCreator pathCreator;
     public GameObject Car;
     public bool Start;
-    float Timer;
-
-    //void Update()
-    //{
-    //    NormalDrive();
-    //}
-
-    //void NormalDrive()
-    //{
-    //    if (ES.ScooterExitZone)
-    //        Start = true;
-
-    //    if(Start)
-    //        ES.distanceTravelled += Time.deltaTime * 10f;
-
-    //    Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);
-    //    Car.transform.rotation = pathCreator.path.GetRotationAtDistance(ES.distanceTravelled);
-    //}
 
     void Update()
     {
-        if (Start)
-        {
-            Timer += Timer.deltaTime;
-
-            Car.transform.position = pathCreator.path.GetPointAtDistance(Timer * 15f);
-            Car.transform.rotation = pathCreator.path.GetRotationAtDistance(Timer * 15f);
-
-            if (Timer > 15)
-            {
-                Timer = 0;
-                Start = false;
-                gameObject.SetActive(false);
-            }
-        }
+        NormalDrive();
     }
 
-    private void OnTriggerEnter(Collider other)
+    void NormalDrive()
     {
-        if (other.tag == "ES")
-        {
+        if (ES.ScooterExitZone)
             Start = true;
-        }
+
+        if(Start)
+            ES.distanceTravelled += Time.deltaTime * 10f;
+
+        Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);
+        Car.transform.rotation = pathCreator.path.GetRotationAtDistance(ES.distanceTravelled);
     }
 }
