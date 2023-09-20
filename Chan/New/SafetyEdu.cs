@@ -10,7 +10,7 @@ public class SafetyEdu : MonoBehaviour
     public PathCreator pathCreator;
     public GameObject Scooter;
     public GameObject GreenLight, RedLight, DeadSound;
-    public GameObject Notice_SlowDown, Notice_Truck, Notice_StopOnRed, Notice_Human, Notice_LaneChanging, Notice_Hit, Notice_KeepLane, Notice_DriveOnRed;
+    public GameObject Notice_SlowDown, Notice_Truck, Notice_StopOnRed, Notice_Human, Notice_LaneChanging, Notice_Hit, Notice_KeepLane, Notice_DriveOnRed, Sound_Last;
     public bool Truck, Human, LaneChanging, Hit;
     float DistanceTravelled;
     float Timer, Starter;
@@ -146,6 +146,9 @@ public class SafetyEdu : MonoBehaviour
                 Notice_LaneChanging.SetActive(false);
                 Timer += Time.deltaTime;
                 DistanceTravelled += Time.deltaTime;
+
+                if (Timer > 102)
+                    Sound_Last.SetActive(true);
 
                 if (Timer > 129)
                 {
