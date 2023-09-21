@@ -41,12 +41,11 @@ public class AccidentGroup : MonoBehaviour
         if (ES.SetNextAccident && ES.PathZoneCount < 10)
         {
             SetNextAccidentTimer += Time.deltaTime;
-            if (SetNextAccidentTimer > 7)
+            if (SetNextAccidentTimer > 15)
             {
                 ES.distanceTravelled = 0;
                 TurnRightThenStop.StoppingTimer= 0;
                 SuddenStart.Start = false;
-                Accident.SetActive(false);
 
                 transform.position = GameObject.Find(ES.PathZoneName + "_" + ES.RouteSelection.ToString() + "_" + (ES.PathZoneCount).ToString()).transform.position;
                 transform.LookAt(GameObject.Find(ES.PathZoneName + "_" + ES.RouteSelection.ToString() + "_" + (ES.PathZoneCount - 1).ToString()).transform.position);

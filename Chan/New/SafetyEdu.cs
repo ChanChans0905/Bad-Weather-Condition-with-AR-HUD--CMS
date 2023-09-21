@@ -70,10 +70,8 @@ public class SafetyEdu : MonoBehaviour
                     Truck = true;
                     Notice_Truck.SetActive(true);
                 }
-
                 if (Timer > 41)
                     Notice_Truck.SetActive(false);
-
             }
 
             if (Timer > 50 && Timer < 55)

@@ -15,6 +15,7 @@ public class SafetyEdu_LaneChanging : MonoBehaviour
     {
         if (SE.LaneChanging)
         {
+            Car.SetActive(true);
             Timer += Time.deltaTime;
             DistanceTravelled += Time.deltaTime;
 
@@ -26,6 +27,7 @@ public class SafetyEdu_LaneChanging : MonoBehaviour
                 SE.LaneChanging = false;
                 Timer = 0;
                 DistanceTravelled = 0;
+                Car.SetActive (false);
                 gameObject.SetActive(false);
             }
         }

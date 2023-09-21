@@ -9,10 +9,17 @@ public class AccidentPathWay_SuddenStartFrom3rdLane : MonoBehaviour
     public PathCreator pathCreator;
     public GameObject Car;
     public bool Start;
+    float Timer;
 
     void Update()
     {
         NormalDrive();
+
+        if (Timer > 15)
+        {
+            Timer = 0;
+            gameObject.SetActive(false);
+        }
     }
 
     void NormalDrive()
@@ -20,8 +27,12 @@ public class AccidentPathWay_SuddenStartFrom3rdLane : MonoBehaviour
         if (ES.ScooterExitZone)
             Start = true;
 
-        if(Start)
+        if (Start)
+        {
             ES.distanceTravelled += Time.deltaTime * 10f;
+            Timer += Time.deltaTime;
+        }
+            
 
         Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);
         Car.transform.rotation = pathCreator.path.GetRotationAtDistance(ES.distanceTravelled);

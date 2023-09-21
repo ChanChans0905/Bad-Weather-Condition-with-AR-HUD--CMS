@@ -8,18 +8,28 @@ public class AccidentPathWay_StraightThenStopOn3rdLane : MonoBehaviour
     [SerializeField] ElectricScooter ES;
     public PathCreator pathCreator;
     public GameObject Car;
+    float Timer;
 
     void Update()
     {
         if (ES.ScooterEnterAccidentCollidor) NormalDrive();
+
+        if (Timer > 10)
+        {
+            Timer = 0;
+            gameObject.SetActive(false);
+        }
     }
 
     void NormalDrive()
     {
         if (!ES.ScooterExitZone)
-            ES.distanceTravelled += Time.deltaTime * 30f;
+        {
+            ES.distanceTravelled += Time.deltaTime * 20f;
+        }
+        Timer += Time.deltaTime;
 
-            Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);
-            Car.transform.rotation = pathCreator.path.GetRotationAtDistance(ES.distanceTravelled);
+        Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);
+        Car.transform.rotation = pathCreator.path.GetRotationAtDistance(ES.distanceTravelled);
     }
 }

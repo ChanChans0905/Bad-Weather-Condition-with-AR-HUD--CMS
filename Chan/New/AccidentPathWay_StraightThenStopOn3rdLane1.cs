@@ -8,17 +8,30 @@ public class AccidentPathWay_StraightThenStopOn3rdLane1 : MonoBehaviour
     [SerializeField] ElectricScooter ES;
     public PathCreator pathCreator;
     public GameObject Car;
+    float Timer;
 
-    // Update is called once per frame
     void Update()
     {
         if (ES.ScooterEnterAccidentCollidor) NormalDrive();
+
+        if (Timer > 15)
+        {
+            Timer = 0;
+            gameObject.SetActive(false);
+        }
     }
 
     void NormalDrive()
     {
+
+
         if (!ES.ScooterExitZone)
-            ES.distanceTravelled += Time.deltaTime * 30f;
+        {
+            ES.distanceTravelled += Time.deltaTime * 20f;
+
+        }
+
+        Timer += Time.deltaTime;
 
         if (ES.Stop)
             ES.distanceTravelled = 610;

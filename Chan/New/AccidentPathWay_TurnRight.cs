@@ -8,16 +8,23 @@ public class AccidentPathWay_TurnRight : MonoBehaviour
     [SerializeField] ElectricScooter ES;
     public PathCreator pathCreator;
     public GameObject Car;
+    float Timer;
 
-    // Update is called once per frame
     void Update()
     {
         if (ES.ScooterEnterAccidentCollidor) NormalDrive();
+
+        if (Timer > 15)
+        {
+            Timer = 0;
+            gameObject.SetActive(false);
+        }
     }
 
     void NormalDrive()
     {
-        ES.distanceTravelled += Time.deltaTime * 20f;
+        ES.distanceTravelled += Time.deltaTime * 15f;
+        Timer += Time.deltaTime;
 
         Car.transform.position = pathCreator.path.GetPointAtDistance(ES.distanceTravelled);
         Car.transform.rotation = pathCreator.path.GetRotationAtDistance(ES.distanceTravelled);

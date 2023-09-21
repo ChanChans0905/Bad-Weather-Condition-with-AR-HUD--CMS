@@ -9,15 +9,23 @@ public class AccidentPathWay_TurnRightThenStop : MonoBehaviour
     public PathCreator pathCreator;
     public float StoppingTimer;
     public GameObject Car;
+    float Timer;
 
-    // Update is called once per frame
     void Update()
     {
         if (ES.ScooterEnterAccidentCollidor) NormalDrive();
+
+        if (Timer > 15)
+        {
+            Timer = 0;
+            gameObject.SetActive(false);
+        }
     }
 
     void NormalDrive()
     {
+        Timer += Time.deltaTime;
+
         StoppingTimer += Time.deltaTime;
         if (StoppingTimer < 2)
             ES.distanceTravelled += Time.deltaTime * 25f;
